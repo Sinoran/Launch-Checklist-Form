@@ -1,9 +1,9 @@
-window.addEventListener("load", function() {
-fetch("https://handlers.education.launchcode.org/static/planets.json").then(function(response) {
-   response.json().then( function(json) {
-      const destination = document.getElementById("missionTarget");
-       destination.innerHTML =  
-       `
+window.addEventListener("load", function () {
+   fetch("https://handlers.education.launchcode.org/static/planets.json").then(function (response) {
+      response.json().then(function (json) {
+         const destination = document.getElementById("missionTarget");
+         destination.innerHTML =
+            `
    <h2>Mission Destination</h2>
       <ol>
         <li>Name: ${json[0].name}</li>
@@ -20,31 +20,30 @@ fetch("https://handlers.education.launchcode.org/static/planets.json").then(func
    let form = document.querySelector("form");
    let launchStatus = document.getElementById("launchStatus");
    let faultyItems = document.getElementById("faultyItems");
-   let fuelStatus = document.getElementById("fuelStatus");
-   let cargoStatus = document.getElementById("cargoStatus");
-         form.addEventListener("submit", function(event) {
-            let pilotName = document.querySelector("input[name=pilotName]");
-            let copilotName = document.querySelector("input[name=copilotName]");
-            let fuelLevel = document.querySelector("input[name=fuelLevel]");
-            let cargoMass = document.querySelector("input[name=cargoMass]");
-            
-            if (pilotName.value === "" || copilotName.value === "" ||
-                 fuelLevel.value === "" || cargoMass.value === "") {
-               alert("All fields are required!");
-               event.preventDefault();
-            } else if(isNaN(pilotName.value) === false ||
-                 isNaN(copilotName.value) === false) {
-               alert("Make sure to enter valid information for each field!")
-               event.preventDefault();
-            } else if(isNaN(fuelLevel.value) === true || isNaN(cargoMass.value) === true) {
-               alert("Make sure to enter valid information for each field!")
-               event.preventDefault();
-            }
-         if(fuelLevel.value < 10000) {
-            launchStatus.style.color = "red";
-            launchStatus.innerHTML = "Shuttle not ready for launch"
-            faultyItems.style.visibility = "visible";
-            faultyItems.innerHTML = `
+ 
+   form.addEventListener("submit", function (event) {
+      let pilotName = document.querySelector("input[name=pilotName]");
+      let copilotName = document.querySelector("input[name=copilotName]");
+      let fuelLevel = document.querySelector("input[name=fuelLevel]");
+      let cargoMass = document.querySelector("input[name=cargoMass]");
+
+      if (pilotName.value === "" || copilotName.value === "" ||
+         fuelLevel.value === "" || cargoMass.value === "") {
+         alert("All fields are required!");
+         event.preventDefault();
+      } else if (isNaN(pilotName.value) === false ||
+         isNaN(copilotName.value) === false) {
+         alert("Make sure to enter valid information for each field!")
+         event.preventDefault();
+      } else if (isNaN(fuelLevel.value) === true || isNaN(cargoMass.value) === true) {
+         alert("Make sure to enter valid information for each field!")
+         event.preventDefault();
+      }
+      if (fuelLevel.value < 10000) {
+         launchStatus.style.color = "red";
+         launchStatus.innerHTML = "Shuttle not ready for launch"
+         faultyItems.style.visibility = "visible";
+         faultyItems.innerHTML = `
             <ol>
               <li>${pilotName.value} is ready for launch.</li>
               <li>${copilotName.value} is ready for launch.</li>
@@ -52,13 +51,13 @@ fetch("https://handlers.education.launchcode.org/static/planets.json").then(func
               <li>Cargo mass low enough for launch.</li>
             </ol>
             `;
-            event.preventDefault();
-              } 
-            if (cargoMass.value > 10000) {
-            launchStatus.style.color = "red";
-            launchStatus.innerHTML = "Shuttle not ready for launch"
-            faultyItems.style.visibility = "visible";
-            faultyItems.innerHTML = `
+         event.preventDefault();
+      }
+      if (cargoMass.value > 10000) {
+         launchStatus.style.color = "red";
+         launchStatus.innerHTML = "Shuttle not ready for launch"
+         faultyItems.style.visibility = "visible";
+         faultyItems.innerHTML = `
             <ol>
               <li>${pilotName.value} is ready for launch.</li>
               <li>${copilotName.value} is ready for launch.</li>
@@ -66,13 +65,13 @@ fetch("https://handlers.education.launchcode.org/static/planets.json").then(func
               <li>Cargo mass is too high enough for launch.</li>
             </ol>
             `;
-            event.preventDefault();
-             }
-         if(fuelLevel.value < 10000 && cargoMass.value > 10000) {
-            launchStatus.style.color = "red";
-            launchStatus.innerHTML = "Shuttle not ready for launch"
-            faultyItems.style.visibility = "visible";
-            faultyItems.innerHTML = `
+         event.preventDefault();
+      }
+      if (fuelLevel.value < 10000 && cargoMass.value > 10000) {
+         launchStatus.style.color = "red";
+         launchStatus.innerHTML = "Shuttle not ready for launch"
+         faultyItems.style.visibility = "visible";
+         faultyItems.innerHTML = `
             <ol>
               <li>${pilotName.value} is ready for launch.</li>
               <li>${copilotName.value} is ready for launch.</li>
@@ -80,14 +79,14 @@ fetch("https://handlers.education.launchcode.org/static/planets.json").then(func
               <li>Cargo mass is too high enough for launch.</li>
             </ol>
             `;
-            event.preventDefault();
-         }
-           if(fuelLevel.value > 10000 && cargoMass.value < 10000) {
-            launchStatus.style.visibility = "visible";
-            faultyItems.style.visibility = "visible";
-            launchStatus.style.color = "green";
-            launchStatus.innerHTML = "Shuttle is ready for launch";
-            faultyItems.innerHTML = `
+         event.preventDefault();
+      }
+      if (fuelLevel.value > 10000 && cargoMass.value < 10000) {
+         launchStatus.style.visibility = "visible";
+         faultyItems.style.visibility = "visible";
+         launchStatus.style.color = "green";
+         launchStatus.innerHTML = "Shuttle is ready for launch";
+         faultyItems.innerHTML = `
             <ol>
                <li>${pilotName.value} is ready for launch.</li>
                <li>${copilotName.value} is ready for launch.</li>
@@ -95,9 +94,7 @@ fetch("https://handlers.education.launchcode.org/static/planets.json").then(func
                <li>Cargo mass low enough for launch.</li>
             </ol>
              `;
-             
-           }
-           event.preventDefault();
-         });
-      });
-      
+      }
+      event.preventDefault();
+   });
+});
